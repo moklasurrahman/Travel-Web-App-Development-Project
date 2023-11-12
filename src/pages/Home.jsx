@@ -1,24 +1,25 @@
-import React from 'react'
+import { useTitle } from '../Hook'
+import FeaturedProduct from '../components/FeaturedProduct'
 import Hero from '../components/Hero'
-import TourType from '../components/TourType'
-import WhyChoose from '../components/WhyChoose'
-import TopDestination from '../components/TopDestination'
-import Featured from '../components/Featured'
-import WhyBest from '../components/WhyBest'
+import ProductGallery from '../components/ProductGallery'
 import Testimonial from '../components/Testimonial'
-import PhotoGallery from '../components/PhotoGallery'
+import TrendingProducts from '../components/TrendingProducts'
+
 
 const Home = () => {
+  useTitle('Home');
+
   return (
     <main>
         <Hero/>
-        <TourType/>
-        <WhyChoose/>
-        <TopDestination/>
-        <Featured/>
-        <WhyBest/>
+        <FeaturedProduct/>
+        <ProductGallery/>
+
+        <TrendingProducts/>
         <Testimonial/>
-        <PhotoGallery/>
+
+        {/* <EmailNewsLetter/> */}
+        
     </main>
   )
 }

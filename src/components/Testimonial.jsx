@@ -1,27 +1,49 @@
-import React from 'react'
+import React from "react";
+import img1 from "../assets/testimoback.svg";
+import img2 from "../assets/persone.svg";
 
 const Testimonial = () => {
   return (
-    <section className="p-[20px] md:px-[100px] md:pt-[40px]">
-  <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
-      <figure className="max-w-screen-md mx-auto">
-          <svg className="h-12 mx-auto mb-3 text-red-800 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/>
-          </svg> 
-          <blockquote>
-              <p className="text-xl font-medium text-blue-800 dark:text-white"> &quot;Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application."</p>
-          </blockquote>
-          <figcaption className="flex items-center justify-center mt-6 space-x-3">
-              <img className="w-6 h-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="profile picture"/>
-              <div className="flex items-center divide-x-2 divide-red-800 dark:divide-gray-700">
-                  <div className="pr-3 font-medium text-blue-800 dark:text-white">Micheal Gough</div>
-                  <div className="pl-3 text-sm font-light text-blue-800 dark:text-gray-400">Photo Editor</div>
-              </div>
-          </figcaption>
-      </figure>
-  </div>
-</section>
-  )
-}
+    <section className="p-[20px] md:px-[100px] md:my-20 ">
+      <div className="relative flex gap-5 flex-col md:flex-row items-center">
+        <div className="left flex-1 relative bg-[#CEF0FF]">
+          <div className="flex inset-5 m-auto h-90">
+            <img
+              src={img1}
+              className=" w-full h-full z-10 flex m-auto justify-center absolute"
+              alt=""
+            />
+            <img src={img2} alt="" className=" z-20 " />
+          </div>
+        </div>
 
-export default Testimonial
+        <div className="right flex-1">
+          <div>
+            <div className="flex gap-[5px]">
+              <h3 className="text-[20px] font-[600]">Justin Pierre</h3>
+            </div>
+            <span className="font-[400] text-[14px] mt-[1px] text-[#7E7E7E]">
+              Products Seller
+            </span>
+            <p className="font-[500px] text-[20px] mt-[40px] italic text-[#000000]">
+              “In 2 years, my business went from just me and my Shop site to 40
+              employees, my own fulfillment center and over 22 million dollars
+              in revenue.”
+            </p>
+          </div>
+
+          <div className="flex gap-4 mt-[52px]">
+            <button className="w-[37.5px] h-[37.5px] bg-[#EBEBEB] text-[#2B2B2B] hover:bg-[#2B2B2B] hover:text-white rounded-full flex items-center justify-center">
+              <i className="bi bi-chevron-left text-[20px]"></i>
+            </button>
+            <button className="w-[37.5px] h-[37.5px] bg-[#EBEBEB] text-[#2B2B2B] hover:bg-[#2B2B2B] hover:text-white rounded-full flex items-center justify-center">
+              <i className="bi bi-chevron-right text-[20px]"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonial;

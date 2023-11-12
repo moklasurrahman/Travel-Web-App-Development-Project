@@ -6,7 +6,7 @@ export async function login(authDetail) {
       body: JSON.stringify(authDetail),
     }
   
-    const response = await fetch(`${process.env.REACT_APP_HOST}/login`, requestionOptions);
+    const response = await fetch("http://localhost:8000/login", requestionOptions);
     if (!response.ok) {
       throw { message: response.statusText, status: response.status }; //eslint-disable-line
     }
@@ -19,6 +19,8 @@ export async function login(authDetail) {
     return data;
   }
   
+
+
   export async function register(authDetail) {
     const requestionOptions = {
       method: "POST",
@@ -26,7 +28,7 @@ export async function login(authDetail) {
       body: JSON.stringify(authDetail),
     };
   
-    const response = await fetch(`${process.env.REACT_APP_HOST}/register`, requestionOptions);
+    const response = await fetch("http://localhost:8000/register", requestionOptions);
     if (!response.ok) {
       throw { message: response.statusText, status: response.status }; //eslint-disable-line
     }
@@ -39,6 +41,7 @@ export async function login(authDetail) {
     return data;
   }
   
+  //get Single user
   export async function getUser() {
     const token = JSON.parse(sessionStorage.getItem("token"));
     const cbid = JSON.parse(sessionStorage.getItem("cbid"));
@@ -51,11 +54,18 @@ export async function login(authDetail) {
       },
     };
   
-    const response = await fetch(`${process.env.REACT_APP_HOST}/users/${cbid}`, requestionOptions);
+    const response = await fetch("", requestionOptions);
     if (!response.ok) {
       throw { message: response.statusText, status: response.status }; //eslint-disable-line
     }
     const data = await response.json();
     return data;
   }
+
+
+  
+export function logout(){
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("cbid");
+}
   

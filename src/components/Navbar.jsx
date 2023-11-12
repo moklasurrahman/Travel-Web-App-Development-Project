@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import img from "../assets/airplane.png";
+import { useSelector } from "react-redux";
+import DropdownLogin from "./Elements/DropdownLogin";
+import DropdownLogout from "./Elements/DropdownLogout";
 
 // import Search from "./Search";
 // import useAos from "../Animation";
@@ -8,7 +11,22 @@ import img from "../assets/airplane.png";
 // eslint-disable-next-line react/prop-types
 const Navbar = () => {
   const [show, setShow] = useState(false);
-  // const [searchshow, setsearchshowShow] = useState(false);
+  
+  
+  const[dropdown, setDropdown] = useState(false);
+
+  const token = JSON.parse(sessionStorage.getItem("token")) // comming from login
+  const products = useSelector((state)=>state.cart.products);
+
+
+  const navigate = useNavigate();
+ const searchRef = useRef();
+
+ const handelSubmit = (event) => {
+   event.preventDefault();
+  navigate(`/All-Products?q=${searchRef.current.value}`);
+
+ }
 
   return (
     <section className=" relative herobg shadow-md shadow-gray-400">
@@ -25,13 +43,13 @@ const Navbar = () => {
             to="/"
             className=" cursor-pointer z-50 left flex items-start flex-col sm:flex-row w-max-content"
           >
-            <p className=" text-[15px] md:text-[20px] xl:text-[25px] flex items-center gap-3 font-bold text-red-700  dark:text-white">
+            <p className=" text-[15px] md:text-[20px] xl:text-[25px] flex items-center gap-3 font-bold text-blue-700  dark:text-white">
               <img
                 src={img}
                 alt=""
-                className="w-[35px] xl:w-[40px] bg-red-700 p-[6px] rounded-[50px] shadow-sm flex items-center justify-center m-auto"
+                className="w-[35px] xl:w-[40px] bg-blue-800 p-[6px] rounded-[50px] shadow-sm flex items-center justify-center m-auto"
               />
-              Trisog
+              eCom.
             </p>
           </Link>
 
@@ -57,7 +75,7 @@ const Navbar = () => {
             >
              <li className="mt-5 md:mt-0">
                 <Link
-                  to="/services"
+                  to="/"
                   className=" hover:underline xl:decoration-4 underline-offset-4 xl:underline-offset-[18px] decoration-red-700"
                   aria-current="page"
                 >
@@ -67,31 +85,21 @@ const Navbar = () => {
 
               <li className="mt-5 md:mt-0">
                 <Link
-                  to="/services"
+                  to="/All-Products"
                   className=" hover:underline xl:decoration-4 underline-offset-4 xl:underline-offset-[18px] decoration-red-700"
                   aria-current="page"
                 >
-                  Destination
+                  All Products
                 </Link>
               </li>
 
               <li className="mt-5 md:mt-0">
                 <Link
-                  to="/products"
+                  to="/Contact"
                   className=" hover:underline xl:decoration-4 underline-offset-4 xl:underline-offset-[18px] decoration-red-700"
                   aria-current="page"
                 >
-                  Details
-                </Link>
-              </li>
-
-              <li className="mt-5 md:mt-0">
-                <Link
-                  to="/about"
-                  className=" hover:underline xl:decoration-4 underline-offset-4 xl:underline-offset-[18px] decoration-red-700"
-                  aria-current="page"
-                >
-                  About
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -109,24 +117,38 @@ const Navbar = () => {
             <p
             >
 
-<div className="search-box">
-    <button className="btn-search"><i className="bi bi-search text-[15px]"></i></button>
-    <input type="text" className="input-search" placeholder="Search..."/>
-  </div>
+<form onSubmit={handelSubmit} className="search-box">
+    <button type="submit" className="btn-search"><i className="bi bi-search text-[15px]"></i></button>
+    <input ref={searchRef} type="text" className="input-search" placeholder="Search Products..."/>
+  </form>
 
 
               
             </p>
             
-            <p className=" flex items-center gap-2 cursor-pointer md:hover:bg-red-50 md:px-3 md:py-1 md:rounded-full">
-              <i className="bi bi-person text-[16px]"></i>
-              <span className=" hidden md:block text-[13px] xl:text-[16px] font-[700]">Login</span>
-            </p>
-           
-            <p className="flex gap-2 items-center cursor-pointer md:hover:bg-red-50 md:px-3 md:py-1 md:rounded-full">
-              <i className="bi bi-person-plus text-[15px]"></i>
-              <span className=" hidden md:block text-[13px] xl:text-[16px] font-[700] ">Registration</span>
-            </p>
+          
+
+
+            <span onClick={()=>setDropdown(!dropdown)} className='cursor-pointer'><i className="bi bi-person-square"/></span>
+
+              <div className="z-50 dropdow absolute top-[50px] right-5 xl:right-[50px]">
+                { dropdown && ( token? <DropdownLogin setDropdown={setDropdown}/> : <DropdownLogout setDropdown={setDropdown}/>)  } 
+               
+              </div>
+
+
+
+
+
+            <Link to='/cart'>
+              <div className=" relative flex gap-2 items-center cursor-pointer md:hover:bg-red-50 md:px-3 md:py-1 md:rounded-full">
+                <i className="bi bi-cart text-[15px]"></i>
+                <span className="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] p-2 text-white bg-red-500 border-2 border-white rounded-full -top-1 -right-1 dark:border-gray-900">{products.length}</span>
+                </div>
+
+              </Link>
+
+
           </div>
 
           <div
@@ -147,17 +169,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* <div className={`transform transition-transform ease-in-out translate-x-0  ${
-           searchshow ? "translate-x-0" : "-translate-x-full xl:-translate-x-0"}`}>
-          <Search />
-      </div> */}
-
-      {/* <div className=" sm:absolute right-0 top-[50px]">
-        {
-            searchshow && <Search/>
-        }
-        
-      </div> */}
+     
     </section>
   );
 };
